@@ -1,7 +1,14 @@
+<div class="col-md-6 col-md-offset-3">
 <h2><%= @item.title %></h2>
 <p><%= @item.description %></p>
-<p>completed <%= time_ago_in_words(@item.completed_at) %> ago</p>
+<%if @item.completed?%>
+<p style="font-size: 11px; color: grey;">completed <%= time_ago_in_words(@item.completed_at) %> ago</p>
+<%else%>
+<p style="font-size: 11px; color: grey;">created <%= time_ago_in_words(@item.created_at) %> ago</p>
+<%end%>
 
-<%= link_to 'back', root_path %>
-<%= link_to 'edit', edit_item_path(@item) %>
-<%= link_to 'delete', item_path(@item), method: :delete, data: {confirm: "Are you sure?"}  %>
+<%= link_to 'back', root_path, class: "btn btn-default btn-sm"%>
+<%= link_to 'complete', complete_item_path(@item), method: :patch, class: "btn btn-default btn-sm" %>
+<%= link_to 'edit', edit_item_path(@item), class: "btn btn-default btn-sm" %>
+<%= link_to 'delete', item_path(@item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default btn-sm" %>
+</div>
