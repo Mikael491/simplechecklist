@@ -11,17 +11,34 @@ class ItemsController < ApplicationController
 	end
 
 	def new
-		@item = Item.new
+		@item = current_user.items.build
 	end
 
 	def create
-		@item = Item.new(item_params)
+		@item = current_user.items.build(item_params)
 
 		if @item.save
 			redirect_to root_path
 		else
 			render 'new'
 		end
+	end
+
+	def edit
+		
+	end
+
+	def update
+		if @item.update(item_params)
+			redirect_to item_path(@item)
+		else
+			render 'edit'
+		end
+	end
+
+	def destroy
+		@item.destroy
+		redirect_to root_path
 	end
 
 	private
